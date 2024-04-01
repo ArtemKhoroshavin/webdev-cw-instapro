@@ -5,6 +5,7 @@ import { dislikePost, getPosts, likePost } from '../api.js'
 
 import { formatDistanceToNow } from "date-fns";
 import { ru } from "date-fns/locale";
+import { sanitize } from '../helpers.js';
 
 export function renderPostsPageComponent({ appEl }) {
     // TODO: реализовать рендер постов из api
@@ -24,7 +25,7 @@ export function renderPostsPageComponent({ appEl }) {
                         <img src="${
                             post.user.imageUrl
                         }" class="post-header__user-image">
-                        <p class="post-header__user-name">${post.user.login}</p>
+                        <p class="post-header__user-name">${sanitize(post.user.login)}</p>
                     </div>
 
                     <div class="post-image-container">
@@ -45,7 +46,7 @@ export function renderPostsPageComponent({ appEl }) {
                       <p class="post-likes-text">
                          <strong>${
                              post.likes.length >= 1
-                                 ? `Нравится: ${post.likes[0]?.name}`
+                                 ? `Нравится: ${sanitize( post.likes[0]?.name)}`
                                  : ' '
                          }
                          <strong>${
@@ -57,8 +58,8 @@ export function renderPostsPageComponent({ appEl }) {
                     </div>
 
                     <p class="post-text">
-                      <span class="user-name">${post.user.name}</span>
-                      ${post.description}
+                      <span class="user-name">${sanitize(post.user.name)}</span>
+                      ${sanitize(post.description)}
                     </p>
                     
                     <p class="post-date">

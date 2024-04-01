@@ -33,10 +33,6 @@ export function postPosts({ token, description, imageUrl }) {
         body: JSON.stringify({
             imageUrl: imageUrl,
             description: description
-                .replaceAll('&', '&amp;')
-                .replaceAll('<', '&lt;')
-                .replaceAll('>', '&gt;')
-                .replaceAll('"', '&quot;'),
         }),
     })
         .then((response) => {

@@ -4,6 +4,7 @@ import { renderHeaderComponent } from './header-component.js'
 
 import { formatDistanceToNow } from "date-fns";
 import { ru } from "date-fns/locale";
+import { sanitize } from '../helpers.js';
 
 export function renderUserPageComponent({ appEl }) {
     // TODO: реализовать рендер постов из api
@@ -33,7 +34,7 @@ export function renderUserPageComponent({ appEl }) {
                       <p class="post-likes-text">
                          <strong>${
                             post.likes.length >= 1
-                                ? `Нравится: ${post.likes[0]?.name}`
+                                ? `Нравится: ${sanitize(post.likes[0]?.name)}`
                                 : ' '
                         }
                          <strong>${
@@ -45,8 +46,8 @@ export function renderUserPageComponent({ appEl }) {
                     </div>
 
                     <p class="post-text">
-                      <span class="user-name">${post.user.name}</span>
-                      ${post.description}
+                      <span class="user-name">${sanitize(post.user.name)}</span>
+                      ${sanitize(post.description)}
                     </p>
                     
                     <p class="post-date">
@@ -63,13 +64,12 @@ export function renderUserPageComponent({ appEl }) {
 
                 <div class="post-header">
                     <img src="${posts[0].user.imageUrl}" class="post-header__user-image">
-                    <p class="post-header__user-name">${posts[0].user.name}</p>
+                    <p class="post-header__user-name">${sanitize(posts[0].user.name)}</p>
                 </div>
 
                 <ul class="posts">
                     ${userPostsHtml}
                 </ul>
-
             </div>`
 
     appEl.innerHTML = userPostsPageHtml
